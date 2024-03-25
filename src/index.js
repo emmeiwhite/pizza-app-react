@@ -6,50 +6,50 @@ import ProfileCard from "./components/ProfileCard";
 import "./index.css";
 const el = document.querySelector("#root");
 
-const pizzaData = [
-  {
-    name: "Focaccia",
-    ingredients: "Bread with italian olive oil and rosemary",
-    price: 6,
-    photoName: "pizzas/focaccia.jpg",
-    soldOut: false,
-  },
-  {
-    name: "Pizza Margherita",
-    ingredients: "Tomato and mozarella",
-    price: 10,
-    photoName: "pizzas/margherita.jpg",
-    soldOut: false,
-  },
-  {
-    name: "Pizza Spinaci",
-    ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
-    price: 12,
-    photoName: "pizzas/spinaci.jpg",
-    soldOut: false,
-  },
-  {
-    name: "Pizza Funghi",
-    ingredients: "Tomato, mozarella, mushrooms, and onion",
-    price: 12,
-    photoName: "pizzas/funghi.jpg",
-    soldOut: false,
-  },
-  {
-    name: "Pizza Salamino",
-    ingredients: "Tomato, mozarella, and pepperoni",
-    price: 15,
-    photoName: "pizzas/salamino.jpg",
-    soldOut: true,
-  },
-  {
-    name: "Pizza Prosciutto",
-    ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
-    price: 18,
-    photoName: "pizzas/prosciutto.jpg",
-    soldOut: false,
-  },
-];
+// const pizzaData = [
+//   {
+//     name: "Focaccia",
+//     ingredients: "Bread with italian olive oil and rosemary",
+//     price: 6,
+//     photoName: "pizzas/focaccia.jpg",
+//     soldOut: false,
+//   },
+//   {
+//     name: "Pizza Margherita",
+//     ingredients: "Tomato and mozarella",
+//     price: 10,
+//     photoName: "pizzas/margherita.jpg",
+//     soldOut: false,
+//   },
+//   {
+//     name: "Pizza Spinaci",
+//     ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
+//     price: 12,
+//     photoName: "pizzas/spinaci.jpg",
+//     soldOut: false,
+//   },
+//   {
+//     name: "Pizza Funghi",
+//     ingredients: "Tomato, mozarella, mushrooms, and onion",
+//     price: 12,
+//     photoName: "pizzas/funghi.jpg",
+//     soldOut: false,
+//   },
+//   {
+//     name: "Pizza Salamino",
+//     ingredients: "Tomato, mozarella, and pepperoni",
+//     price: 15,
+//     photoName: "pizzas/salamino.jpg",
+//     soldOut: true,
+//   },
+//   {
+//     name: "Pizza Prosciutto",
+//     ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
+//     price: 18,
+//     photoName: "pizzas/prosciutto.jpg",
+//     soldOut: false,
+//   },
+// ];
 const Pizza = ({ name, ingredients, photoName, price, soldOut }) => {
   return (
     <div className="pizza">
@@ -97,12 +97,21 @@ const App = () => {
 function Menu() {
   // Rendering list
 
-  const pizzaList = pizzaData.map((pizza) => (
-    <Pizza
-      {...pizza}
-      key={pizza.id}
-    />
-  ));
+  const pizzaData = [];
+  const pizzaList =
+    pizzaData.length > 0 ? (
+      pizzaData.map((pizza) => (
+        <Pizza
+          {...pizza}
+          key={pizza.id}
+        />
+      ))
+    ) : (
+      <p>
+        The Pizza's are being prepared, wait until we upload the pizza menu!
+        Sorry for any inconvenience
+      </p>
+    );
   return (
     <main className="menu">
       {/* <Pizza
@@ -136,17 +145,26 @@ function Footer() {
   const hour = new Date().getHours();
   const openTime = 8;
   const closeTime = 22;
+  const isOpen = hour >= openTime && hour <= closeTime;
 
-  if (hour >= openTime && hour <= closeTime) {
-    console.log("The Restaurant is open");
-  } else {
-    console.log("The Restaurant is currently closed and will open at 8am");
-  }
   return (
     <footer className="footer">
-      {" "}
-      &copy; Pizza Palace {new Date().toLocaleTimeString()}! We are currently
-      open
+      {isOpen ? (
+        <div className="order">
+          <p>
+            We're open until {closeTime}:00 pm. Come visit us or order online
+          </p>
+
+          <button className="btn">Order</button>
+        </div>
+      ) : (
+        <p>The Restaurant is closed and with open at {openTime}</p>
+      )}{" "}
+      <br />
+      <p style={{ textAlign: "right" }}>
+        {" "}
+        &copy; Pizza Palace {new Date().toLocaleTimeString()}
+      </p>
     </footer>
   );
 }
