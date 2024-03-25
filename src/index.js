@@ -73,14 +73,32 @@ const App = () => {
     userImage: "pizzas/focaccia.jpg",
     aboutUser:
       "I am a Frontend web developer. I love to create React Applications and UI",
-    skills: [
-      { id: 1, name: "HTML+CSS 💪", bgColor: "#FFD700" }, // Gold
-      { id: 2, name: "JavaScript 💪", bgColor: "#87CEEB" }, // Sky Blue
-      { id: 3, name: "React JS 💪", bgColor: "#90EE90" }, // Light Green
-      { id: 4, name: "Git and Github 👍", bgColor: "#9370DB" }, // Medium Purple
-      { id: 5, name: "Tailwind CSS 👍", bgColor: "#00CED1" }, // Dark Turquoise
-    ],
+    // skills: [
+    //   { id: 1, name: "HTML+CSS 💪", bgColor: "#FFD700" }, // Gold
+    //   { id: 2, name: "JavaScript 💪", bgColor: "#87CEEB" }, // Sky Blue
+    //   { id: 3, name: "React JS 💪", bgColor: "#90EE90" }, // Light Green
+    //   { id: 4, name: "Git and Github 👍", bgColor: "#9370DB" }, // Medium Purple
+    //   { id: 5, name: "Tailwind CSS 👍", bgColor: "#00CED1" }, // Dark Turquoise
+    // ],
   };
+
+  const skills = [
+    { id: 1, level: "advanced", name: "HTML+CSS", bgColor: "#EED700" },
+    { id: 2, level: "advanced", name: "JavaScript", bgColor: "#87CEEB" },
+    { id: 3, level: "advanced", name: "React JS", bgColor: "#90EE90" },
+    {
+      id: 4,
+      level: "intermediate",
+      name: "Git and Github",
+      bgColor: "#9370DB",
+    },
+    {
+      id: 5,
+      level: "intermediate",
+      name: "Tailwind CSS",
+      bgColor: "#00CED1",
+    },
+  ];
   return (
     <section className="container">
       <Header />
@@ -89,7 +107,10 @@ const App = () => {
 
       <hr />
 
-      <ProfileCard {...profile} />
+      <ProfileCard
+        {...profile}
+        skills={skills}
+      />
     </section>
   );
 };
@@ -113,25 +134,7 @@ function Menu() {
         Sorry for any inconvenience
       </p>
     );
-  return (
-    <main className="menu">
-      {/* <Pizza
-        pizzaName="Focaccia Pizza"
-        aboutPizza="Bread with italian olive oil and rosemary"
-        pizzaImg="pizzas/focaccia.jpg"
-        price={35}
-      />
-
-      <Pizza
-        pizzaName="Pizza Margherita"
-        aboutPizza="Tomato, mozarella, ham, aragula, and burrata cheese"
-        pizzaImg="pizzas/margherita.jpg"
-        price={15}
-      /> */}
-
-      {pizzaList}
-    </main>
-  );
+  return <main className="menu">{pizzaList}</main>;
 }
 function Header() {
   const styles = {}; //inline styles
