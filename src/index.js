@@ -6,53 +6,54 @@ import ProfileCard from "./components/ProfileCard";
 import "./index.css";
 const el = document.querySelector("#root");
 
-// const pizzaData = [
-//   {
-//     name: "Focaccia",
-//     ingredients: "Bread with italian olive oil and rosemary",
-//     price: 6,
-//     photoName: "pizzas/focaccia.jpg",
-//     soldOut: false,
-//   },
-//   {
-//     name: "Pizza Margherita",
-//     ingredients: "Tomato and mozarella",
-//     price: 10,
-//     photoName: "pizzas/margherita.jpg",
-//     soldOut: false,
-//   },
-//   {
-//     name: "Pizza Spinaci",
-//     ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
-//     price: 12,
-//     photoName: "pizzas/spinaci.jpg",
-//     soldOut: false,
-//   },
-//   {
-//     name: "Pizza Funghi",
-//     ingredients: "Tomato, mozarella, mushrooms, and onion",
-//     price: 12,
-//     photoName: "pizzas/funghi.jpg",
-//     soldOut: false,
-//   },
-//   {
-//     name: "Pizza Salamino",
-//     ingredients: "Tomato, mozarella, and pepperoni",
-//     price: 15,
-//     photoName: "pizzas/salamino.jpg",
-//     soldOut: true,
-//   },
-//   {
-//     name: "Pizza Prosciutto",
-//     ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
-//     price: 18,
-//     photoName: "pizzas/prosciutto.jpg",
-//     soldOut: false,
-//   },
-// ];
+const pizzaData = [
+  {
+    name: "Focaccia",
+    ingredients: "Bread with italian olive oil and rosemary",
+    price: 6,
+    photoName: "pizzas/focaccia.jpg",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Margherita",
+    ingredients: "Tomato and mozarella",
+    price: 10,
+    photoName: "pizzas/margherita.jpg",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Spinaci",
+    ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
+    price: 12,
+    photoName: "pizzas/spinaci.jpg",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Funghi",
+    ingredients: "Tomato, mozarella, mushrooms, and onion",
+    price: 12,
+    photoName: "pizzas/funghi.jpg",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Salamino",
+    ingredients: "Tomato, mozarella, and pepperoni",
+    price: 15,
+    photoName: "pizzas/salamino.jpg",
+    soldOut: true,
+  },
+  {
+    name: "Pizza Prosciutto",
+    ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
+    price: 18,
+    photoName: "pizzas/prosciutto.jpg",
+    soldOut: false,
+  },
+];
+
 const Pizza = ({ name, ingredients, photoName, price, soldOut }) => {
   return (
-    <div className="pizza">
+    <div className={`${!soldOut ? "pizza" : "pizza sold-out"}`}>
       <img
         src={photoName}
         alt="pizza"
@@ -60,7 +61,7 @@ const Pizza = ({ name, ingredients, photoName, price, soldOut }) => {
       <div>
         <h3>{name}</h3>
         <p>{ingredients}</p>
-        <span>{price}</span>
+        <span>{!soldOut ? price : " Sold Out"}</span>
       </div>
     </div>
   );
@@ -97,13 +98,13 @@ const App = () => {
 function Menu() {
   // Rendering list
 
-  const pizzaData = [];
+  //   const pizzaData = [];
   const pizzaList =
     pizzaData.length > 0 ? (
       pizzaData.map((pizza) => (
         <Pizza
           {...pizza}
-          key={pizza.id}
+          key={pizza.name}
         />
       ))
     ) : (
@@ -141,6 +142,15 @@ function Header() {
   );
 }
 
+function Order({ closeTime }) {
+  return (
+    <div className="order">
+      <p>We're open until {closeTime}:00 pm. Come visit us or order online</p>
+
+      <button className="btn">Order</button>
+    </div>
+  );
+}
 function Footer() {
   const hour = new Date().getHours();
   const openTime = 8;
@@ -150,15 +160,9 @@ function Footer() {
   return (
     <footer className="footer">
       {isOpen ? (
-        <div className="order">
-          <p>
-            We're open until {closeTime}:00 pm. Come visit us or order online
-          </p>
-
-          <button className="btn">Order</button>
-        </div>
+        <Order closeTime={closeTime} />
       ) : (
-        <p>The Restaurant is closed and with open at {openTime}</p>
+        <p>The Restaurant is closed and with open at {openTime}:00 am</p>
       )}{" "}
       <br />
       <p style={{ textAlign: "right" }}>
